@@ -1,0 +1,119 @@
+/* google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Atma:wght@300;400;500;600;700&family=Chewy&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "ubuntu", "Atma", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+body {
+  background-color: #02191d;
+  color: #fff;
+}
+.links a{
+  margin-right: 1.5rem;
+}
+.selection{
+  width: 100%;
+  height: fit-content;
+  border-radius: 32px;
+}
+.main-content{
+  height: 100%;
+}
+.about-event p{
+  text-align: center;
+}
+.about-event h1{
+  font-size: 1.6rem;
+  font-weight: bolder;
+}
+.ticket-type-container {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.ticket-type-container .ticket-type{
+  /* background-color: #197686; */
+  padding: .5rem;
+  width: 100%;
+  height: 105px;
+  margin-bottom: .5rem;
+}
+.ticket-type-container .ticket-type.active{
+  background-color: #197686;
+  border: 1px solid #12464E;
+}
+.ticket-number select{
+  cursor: pointer;
+}
+.ticket-number option{
+  background-color: #02191d;
+  cursor: pointer;
+  color: #fff;
+}
+.form-navigation{
+  width: 100%;
+  margin-top: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-navigation button{
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+}
+/*devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .selection{
+    width: 700px;
+    height: 800px;
+    border-radius: 40px;
+  }
+  .main-content{
+    height: 620px;
+    border-radius: 32px;
+    /* background-color: #0E464F; */
+  }
+  .about-event h1{
+    font-size: 2.3rem;
+    font-weight: bolder;
+  }
+  .ticket-type-container{
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .ticket-type-container .ticket-type{
+    /* background-color: #197686; */
+    padding: .5rem;
+    width: 148;
+    height: 105px;
+    margin-bottom: 0;
+  }
+  .form-navigation{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .form-navigation button{
+    width: 226px;
+  }
+}
+/* 700*858 */
+/* 604*682 */

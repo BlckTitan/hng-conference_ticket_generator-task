@@ -1,13 +1,8 @@
-'use client'
+import React from 'react'
 
-import React, { useState } from 'react'
-import NavigationStep from '../components/NavigationStep';
-import { Form, InputGroup } from 'react-bootstrap';
-import { BsCloudArrowUp, BsEnvelopeAt } from 'react-icons/bs';
+export default function Ticket() {
 
-export default function AttendeeDetails() {
-
-    const [now, setNow] = useState('8/12')
+    const [now, setNow] = useState('full')
 
   return (
     <div className='selection p-6 md:px-12 md:py-10 bg-backgroundGreen border border-borderGreen mt-8'>

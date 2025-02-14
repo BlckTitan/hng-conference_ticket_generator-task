@@ -12,10 +12,10 @@ export default function AboutEventComponent() {
           <h1>Techember Fest "25</h1>
           <p className="text-center">Join us for an unforgettable experience at Techember Fest! Secure your spot now.</p>
           <p className="flex items-center mt-2">
-          <span className="text-red-500">
+          <span className="text-red-500 mr-1">
               <BsFillGeoFill />
           </span>
-          The Tech Place Port Harcourt, Rivers State. || March 15, 2025 | 7:00 PM
+          04 Rumens road, Ikoyi Lagos || March 15, 2025 | 7:00 PM
           </p>
       </div>
 

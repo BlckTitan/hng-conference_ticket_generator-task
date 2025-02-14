@@ -1,20 +1,22 @@
 import type { Metadata } from "next";
 import "./globals.css";
-
+import Providers from "../app/GlobalRedux/provider";
 
 export const metadata: Metadata = {
   title: "Conference Ticket Generator"
 };
 
 export default function RootLayout({
-  children,
+  children, 
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
       <body>
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

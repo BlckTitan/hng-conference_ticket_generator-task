@@ -74,6 +74,13 @@ body {
   height: 40px;
   border-radius: 8px;
 }
+.ticket{
+  width: 100%;
+  height: fit-content;
+}
+.about{
+  text-align: center;
+}
 /*devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
   .selection{
@@ -114,6 +121,7 @@ body {
   .form-navigation button{
     width: 226px;
   }
+  .ticket{
+    width: 320px;
+  }
 }
-/* 700*858 */
-/* 604*682 */

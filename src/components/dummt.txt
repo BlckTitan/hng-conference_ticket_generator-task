@@ -1,22 +1,4 @@
-
-<button className="text-left border border-borderGreen rounded-xl active">
-                <h1 className="font-semibold text-xl">Free</h1>
-                <h3 className="">REGULAR ACCESS</h3>
-                <span>20/52</span>
-
-                  
-
-              </button>
-
-               <button className="text-left border border-borderGreen rounded-xl">
-                <h1 className="font-semibold text-xl">$150</h1>
-                <h3 className="">VIP ACCESS</h3>
-                <span>20/52</span>
-              </button>
-
-              <button className="text-left border border-borderGreen rounded-xl">
-                <h1 className="font-semibold text-xl">$150</h1>
-                <h3 className="">VVIP ACCESS</h3>
-                <span>20/52</span>
-              </button>
-                
+(ticketType === 'option1') ? 
+                    className='ticket-type regularAccess text-left border border-borderGreen rounded-xl active'
+                    : clasName='ticket-type regularAccess text-left border border-borderGreen rounded-xl'
+                    

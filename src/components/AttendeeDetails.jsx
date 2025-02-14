@@ -1,18 +1,48 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavigationStep from '../components/NavigationStep';
 import { Form, InputGroup } from 'react-bootstrap';
 import { BsCloudArrowUp, BsEnvelopeAt } from 'react-icons/bs';
+import { nextStep, prevStep } from '@/app/GlobalRedux/progressSlice/progressSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getEmail, getName, getSpecialRequest } from '@/app/GlobalRedux/ticketSlice/ticketSlice';
 
 export default function AttendeeDetails() {
 
-    const [now, setNow] = useState('8/12')
-
-  return (
-    <div className='selection p-6 md:px-12 md:py-10 bg-backgroundGreen border border-borderGreen mt-8'>
+    // const [now, setNow] = useState('8/12')
+    const dispatch = useDispatch()
+    const step = useSelector((state) => state.currentStepData)
+    const [stepCount, setStepCount] = useState('1/3')
+    const [stepTitle, setStepTitle] = useState('Ticket Selection')
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [specialRequest, setSpecialRequest] = useState()
+  
+    useEffect(() => {
         
-        <NavigationStep now={now} title='Attendee Details' step='2/3'/>
+      if (step.step === 2) {
+        setStepCount('2/3')
+        setStepTitle('Attendee Details')
+      }
+
+    }, [stepCount, stepTitle])
+
+    const handleImgUpload = async () =>{
+        const file = await e.target.files;
+        const url = URL.createObjectURL(file[0])
+
+        console.log(url)
+    }
+  return (
+    <div className=''>
+        
+        <NavigationStep title='Attendee Details' step='2/3'/>
+
+        {/* form progress bar */}
+        <div className="w-full h-1 bg-borderGreen mt-1 relative rounded-full">
+            <div className='w-8/12 h-1 bg-backgroundGreenLight rounded-full absolute top-0'></div>
+        </div>
 
         <main className="main-content w-full md:!h-fit md:border border-borderGreen md:p-8 mt-6">
 
@@ -21,10 +51,14 @@ export default function AttendeeDetails() {
             {/* <Form noValidate validated={validated} onSubmit={handleSubmit}> */}
             <section className="w-full md:max-w-xl h-fit md:h-36 flex justify-center items-center border border-borderGreen rounded-3xl md:p-6" >
 
-                <div className="avatar w-full h-full flex flex-col justify-center items-center bg-backgroundGreen relative">
+                <div className="w-full h-full flex flex-col justify-center items-center p-3 md:p-0 bg-backgroundGreen rounded-full md:rounded-lg relative">
                     
                     <Form.Group controlId="upload" className="mb-2 hidden">
-                        <Form.Control type="file" required/>
+                        <Form.Control 
+                            type="file" accept='image/*'
+                            onChange={(e) => { handleImgUpload(e)}}
+                            required
+                        />
                     </Form.Group>
 
                     <Form.Label 
@@ -58,6 +92,8 @@ export default function AttendeeDetails() {
                             placeholder="Large text" 
                             aria-label="Enter your name"
                             className='w-full h-10 mt-2 p-2 bg-transparent border border-borderGreen rounded-lg'
+                            value={name}
+                            onChange={(e) => (setName(e.target.value), dispatch(getName(e.target.value)))}
                         />
                     </Form.Group>
                 
@@ -77,6 +113,8 @@ export default function AttendeeDetails() {
                             aria-describedby="basic-addon1"
                             required 
                             className='w-full h-10 mt-2 p-2 bg-transparent border border-borderGreen rounded-lg'
+                            value={email}
+                            onChange={(e) => (setEmail(e.target.value), dispatch(getEmail(e.target.value)))}
                         />
                     </InputGroup>
                     
@@ -90,6 +128,8 @@ export default function AttendeeDetails() {
                             as="textarea" 
                             rows={4} 
                             className='w-full mt-2 bg-transparent border border-borderGreen rounded-lg'
+                            value={specialRequest}
+                            onChange={(e) => (setSpecialRequest(e.target.value), dispatch(getSpecialRequest(e.target.value)))}
                         />
                     </Form.Group>
                 </div>
@@ -104,6 +144,7 @@ export default function AttendeeDetails() {
                     type="button" 
                     className="text-backgroundGreenLight border border-borderGreen mb-2 md:mb-0"
                     aria-label="Cancel ticket purchase" 
+                    onClick={() => dispatch(prevStep())}
                 >
                     Back
                 </button>
@@ -111,7 +152,8 @@ export default function AttendeeDetails() {
                 <button 
                     type="button" 
                     className="bg-backgroundGreenLight"
-                    aria-label="Next step" 
+                    aria-label="Next step"
+                    onClick={() => dispatch(nextStep())}
                 >
                     Get My Ticket
                 </button>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { BsArrowRight } from 'react-icons/bs';
+import { BsArrowRight, BsTicketPerforated } from 'react-icons/bs';
 import logo from '../../public/img/logo-transparent.png'
 
 export default function TopNavComponent() {
@@ -8,7 +8,7 @@ export default function TopNavComponent() {
         
       <nav className=' w-full h-full flex justify-between items-center relative'>
         <div className='logo'>
-          <img src={logo} alt="logo image format:png" />
+          <span className='text-white text-xl'><BsTicketPerforated /></span>
         </div>
         <div className='links hidden xl:inline-block'>
           <a href="/events">Events</a>

@@ -9,6 +9,13 @@ import { upload } from '@/lib/upload';
 export default function Ticket() {
 
     const dispatch = useDispatch()
+    
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [ticketType, setTicketTye] = useState('')
+    const [specialRequest, setSpecialRequest] = useState('')
+    const [profilePhoto, setProfilePhoto] = useState('')
+   const [numberOfTickets, setNumberOfTickets] = useState(0)
 
     const step = useSelector((state) => state.currentStepData)
 
@@ -26,13 +33,16 @@ export default function Ticket() {
 
     // getting user ticket data
     useEffect(() => {
-        localStorage.setItem('name', data.name);
-        localStorage.setItem('ticketType', data.ticketType);
-        localStorage.setItem('email', data.email);
-        localStorage.setItem('specialRequest', data.specialRequest);
-        localStorage.setItem('profilePhoto', uploadData[0].value.secure_url);
+        if(localStorage.getItem('name')) return setName(localStorage.getItem('name'))
+        if(localStorage.getItem('ticketType')) return setTicketTye(localStorage.getItem('ticketType'))
+        if(localStorage.getItem('email')) return setEmail(localStorage.getItem('email'))
+        if(localStorage.getItem('specialRequest')) return setSpecialRequest(localStorage.getItem('specialRequest'))
+        if(localStorage.getItem('numberOfTickets')) return setNumberOfTickets(localStorage.getItem('numberOfTickets'))
+        if(localStorage.getItem('profilePhoto')) return setProfilePhoto(localStorage.getItem('profilePhoto'))
+    }, [name, email, profilePhoto, specialRequest, ticketType])
 
-    })
+    console.log(name, email, profilePhoto, specialRequest, ticketType)
+
   return (
     <div>
         
@@ -74,22 +84,22 @@ export default function Ticket() {
 
                             {/* avatar */}
                             <div className='w-32 h-32 my-2 bg-white rounded-lg'>
-                                <img src={null} alt="" />
+                                <img src={profilePhoto} alt="profile avatar" aria-label='profile avatar'/>
                             </div>
 
                             <div className='attendee-ticket-details border border-borderGreen w-full rounded-lg'>
                                 <div className='flex'>
-                                    <div className="text-wrap w-1/2 border-r border-b border-borderGreen p-2">Avi Chukwu</div>
-                                    <div className="text-wrap w-1/2 border-b border-borderGreen p-2"> User@email.com</div>
+                                    <div className="text-wrap w-1/2 border-r border-b border-borderGreen p-2">{name}</div>
+                                    <div className="text-wrap w-1/2 border-b border-borderGreen p-2">{email}</div>
                                 </div>
 
                                 <div className='flex'>
                                     <div className="text-wrap w-1/2 border-r border-b border-borderGreen p-2">VIP</div>
-                                    <div className="text-wrap w-1/2 border-b border-borderGreen p-2">1</div>
+                                    <div className="text-wrap w-1/2 border-b border-borderGreen p-2">{numberOfTickets}</div>
                                 </div>
 
                                 <div className="w-full border-borderGreen p-2">
-                                    Nil? Or the users sad story they write in there gets this whole space, Max of three rows
+                                    {specialRequest}
                                 </div>
                             </div>
 

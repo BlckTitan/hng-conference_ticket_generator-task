@@ -54,6 +54,7 @@ export default function AttendeeDetails() {
             localStorage.setItem('name', data.name);
             localStorage.setItem('ticketType', data.ticketType);
             localStorage.setItem('email', data.email);
+            localStorage.setItem('numberOfTickets', data.numberOfTickets);
             localStorage.setItem('specialRequest', data.specialRequest);
             localStorage.setItem('profilePhoto', uploadData[0].value.secure_url);
 
@@ -107,7 +108,11 @@ export default function AttendeeDetails() {
                     </Form.Label>
 
                     <div className='w-full h-full'
-                        style={{backgroundColor: '#030303'}}></div>
+                        style={{backgroundColor: '#030303'}}>
+                        {url &&
+                            <img src={url} className='w-full h-full object-cover'/>
+                        }
+                    </div>
 
                 </div>
 

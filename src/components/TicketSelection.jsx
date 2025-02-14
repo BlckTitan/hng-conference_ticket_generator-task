@@ -11,15 +11,19 @@ export default function TicketSelection() {
   const dispatch = useDispatch()
 
   const step = useSelector((state) => state.currentStepData)
+  const data = useSelector((state) => state.ticketData)
+
   const [stepCount, setStepCount] = useState('1/3')
   const [stepTitle, setStepTitle] = useState('Ticket Selection')
   const [ticketType, setTicketType] = useState('')
+  const [errorType, setErrorType] = useState('')
 
    useEffect(() => {
       if (step.step === 1) {
         setStepCount('1/3')
         setStepTitle('Ticket Selection')
       }
+      
   }, [stepCount, stepTitle])
 
   const cancelSelection = () =>{
@@ -49,7 +53,13 @@ export default function TicketSelection() {
             <div className="w-full h-1 my-6 bg-borderGreenDark rounded-full"></div>
 
             <section>
-              <h1 className="mb-2">Select Ticket Type</h1>
+              {/* error message */}
+              <div className='flex justify-between item-center'>
+                <h1 className="mb-2">Select Ticket Type</h1>
+                <span className='red-200 text-sm'>
+                  {errorType && errorType}
+                </span>
+              </div>
               <div className="ticket-type-container w-full p-2 border border-borderGreen rounded-3xl">
 
                 {/* ticket type selection */}
@@ -145,7 +155,7 @@ export default function TicketSelection() {
                       name='package'
                       value={['VVIP Access', 150, '20/52']}
                       onChange={(e) => {
-                        setTicketType('option3')
+                          setTicketType('option3')
                           dispatch(getticketType([e.target.value]))
                         }
                       }
@@ -155,10 +165,10 @@ export default function TicketSelection() {
                   <label
                     htmlFor='vvipAccess'
                   >
-                  <h1 className="font-semibold text-xl">$150</h1>
+                    <h1 className="font-semibold text-xl">$150</h1>
                     <h3 className="">VVIP ACCESS</h3>
                     <span>20/52</span>
-                    </label>
+                  </label>
 
                 </div>
               </div>

@@ -14,7 +14,7 @@ export default function SelectionComponent() {
     <div className='selection p-6 md:p-12 bg-backgroundGreen border border-borderGreen mt-8'>
       
       {(step.step === 1) && <TicketSelection/>}
-      {(step.step === 2) && <AttendeeDetails/>}
+      {(step.step === 2) && <AttendeeDetails/>} 
       {(step.step === 3) && <Ticket/>}
     </div>
   )

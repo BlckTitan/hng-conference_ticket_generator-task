@@ -15,7 +15,9 @@
 }
 
 body {
-  background-color: #02191d;
+  /* background-color: #02191d; */
+  background: rgb(2,25,29);
+  background: linear-gradient(315deg, rgba(2,25,29,1) 6%, rgba(8,37,43,1) 17%, rgba(8,37,43,1) 41%, rgba(1,26,31,1) 62%);
   color: #fff;
 }
 .links a{
@@ -26,7 +28,9 @@ body {
   height: fit-content;
   border-radius: 32px;
 }
-.main-content{
+.main-content{ 
+  /* background: rgb(2,25,29);
+  background: linear-gradient(315deg, rgba(2,25,29,1) 6%, rgba(8,37,43,1) 17%, rgba(8,37,43,1) 41%, rgba(1,26,31,1) 62%); */
   height: 100%;
 }
 .about-event p{

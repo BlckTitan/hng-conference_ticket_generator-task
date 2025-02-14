@@ -5,10 +5,10 @@ export const ticketSlice = createSlice({
     initialState: {
         ticketType: [],
         numberOfTickets: 1, 
-        profilePhoto: '',
         name: '',
         email: '',
-        specialRquest: ''
+        specialRquest: '',
+        submitStatus: false
     },
     reducers: {
         getticketType: (state, action) => {
@@ -16,9 +16,6 @@ export const ticketSlice = createSlice({
         },
         getNumberOfTickets: (state, action) => {
             state.numberOfTickets = action.payload
-        },
-        getProfilePhoto: (state, action) => {
-            state.profilePhoto = action.payload
         },
         getName: (state, action) => {
             state.name = action.payload
@@ -28,11 +25,14 @@ export const ticketSlice = createSlice({
         },
         getSpecialRequest: (state, action) => {
             state.specialRequest = action.payload
+        },
+        getSubmitStatus: (state, action) => {
+            state.submitStatus = action.payload
         }
     }
 });
 export const { 
     getticketType, getNumberOfTickets, getProfilePhoto,
-    getName, getEmail, getSpecialRequest
+    getName, getEmail, getSpecialRequest, getAvatarData
 } = ticketSlice.actions
 export default ticketSlice.reducer

@@ -4,7 +4,7 @@ import AboutEvent from '@/components/AboutEvent'
 import { useDispatch, useSelector } from 'react-redux'
 import { nextStep } from '@/app/GlobalRedux/progressSlice/progressSlice'
 import NavigationStepComponent from './NavigationStep'
-import { getNumberOfTickets, getticketType } from '@/app/GlobalRedux/ticketSlice/ticketSlice'
+import { getEmail, getName, getNumberOfTickets, getSpecialRequest, getticketType } from '@/app/GlobalRedux/ticketSlice/ticketSlice'
 
 export default function TicketSelection() {
 

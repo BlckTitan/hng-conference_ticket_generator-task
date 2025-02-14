@@ -4,19 +4,18 @@ import NavigationStep from '../components/NavigationStep';
 import { BsCalendar2Date, BsFillGeoFill } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeStep } from '@/app/GlobalRedux/progressSlice/progressSlice';
+import { upload } from '@/lib/upload';
 
 export default function Ticket() {
 
     const dispatch = useDispatch()
 
     const step = useSelector((state) => state.currentStepData)
-    const data = useSelector((state) => state.ticketData)
-
-    console.log(data.ticketType+'12')
 
     const [stepCount, setStepCount] = useState('1/3')
     const [stepTitle, setStepTitle] = useState('Ticket Selection')
 
+    // tracking form steps
     useEffect(() => {
         if (step.step === 3) {
             setStepCount('3/3')
@@ -25,16 +24,15 @@ export default function Ticket() {
 
     }, [stepCount, stepTitle])
 
-    const handleSubmit = () =>{
-
+    // getting user ticket data
+    useEffect(() => {
         localStorage.setItem('name', data.name);
         localStorage.setItem('ticketType', data.ticketType);
-        localStorage.setItem('profilePhoto', data.profilePhoto);
         localStorage.setItem('email', data.email);
         localStorage.setItem('specialRequest', data.specialRequest);
+        localStorage.setItem('profilePhoto', uploadData[0].value.secure_url);
 
-    }
-
+    })
   return (
     <div>
         
@@ -117,7 +115,6 @@ export default function Ticket() {
                     type="button" 
                     className="bg-backgroundGreenLight"
                     aria-label="Download step" 
-                    onClick={() => handleSubmit()}
                 >
                     Download Ticket
                 </button>

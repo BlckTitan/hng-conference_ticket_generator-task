@@ -3,22 +3,30 @@
 import React, { useEffect, useState } from 'react'
 import NavigationStep from '../components/NavigationStep';
 import { Form, InputGroup } from 'react-bootstrap';
-import { BsCloudArrowUp, BsEnvelopeAt } from 'react-icons/bs';
+import { BsCloudArrowUp } from 'react-icons/bs';
 import { nextStep, prevStep } from '@/app/GlobalRedux/progressSlice/progressSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEmail, getName, getSpecialRequest } from '@/app/GlobalRedux/ticketSlice/ticketSlice';
+import { upload } from '../lib/upload'
+
 
 export default function AttendeeDetails() {
 
     // const [now, setNow] = useState('8/12')
     const dispatch = useDispatch()
+
     const step = useSelector((state) => state.currentStepData)
+    const data = useSelector((state) => state.ticketData)
+
     const [stepCount, setStepCount] = useState('1/3')
     const [stepTitle, setStepTitle] = useState('Ticket Selection')
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [specialRequest, setSpecialRequest] = useState()
+    const [url, setUrl] = useState('')
+    const [imageData, setImageData] = useState('')
   
+    // tracking the form steps
     useEffect(() => {
         
       if (step.step === 2) {
@@ -28,12 +36,36 @@ export default function AttendeeDetails() {
 
     }, [stepCount, stepTitle])
 
-    const handleImgUpload = async () =>{
+    const handleImgUpload = async (e) =>{
         const file = await e.target.files;
-        const url = URL.createObjectURL(file[0])
-
-        console.log(url)
+        // checking file size and file type
+        if(file !== '' && file[0].size < 1024 * 1024 && file[0].type.startsWith('image/')){
+            setImageData(file[0])
+            setUrl(URL.createObjectURL(file[0]))
+        }
     }
+
+     const handleSubmit = async() =>{
+
+        try {
+
+            const uploadData = await upload(imageData)
+            
+            localStorage.setItem('name', data.name);
+            localStorage.setItem('ticketType', data.ticketType);
+            localStorage.setItem('email', data.email);
+            localStorage.setItem('specialRequest', data.specialRequest);
+            localStorage.setItem('profilePhoto', uploadData[0].value.secure_url);
+
+            dispatch(nextStep())
+
+        } catch (error) {
+            throw error
+        }
+        
+    }
+    
+
   return (
     <div className=''>
         
@@ -55,7 +87,8 @@ export default function AttendeeDetails() {
                     
                     <Form.Group controlId="upload" className="mb-2 hidden">
                         <Form.Control 
-                            type="file" accept='image/*'
+                            type="file" 
+                            accept='image/*'
                             onChange={(e) => { handleImgUpload(e)}}
                             required
                         />
@@ -153,7 +186,7 @@ export default function AttendeeDetails() {
                     type="button" 
                     className="bg-backgroundGreenLight"
                     aria-label="Next step"
-                    onClick={() => dispatch(nextStep())}
+                    onClick={() => handleSubmit()}
                 >
                     Get My Ticket
                 </button>

@@ -1,14 +1,14 @@
 import React from 'react'
 import { BsArrowRight, BsTicketPerforated } from 'react-icons/bs';
-import logo from '../../public/img/logo-transparent.png'
 
 export default function TopNavComponent() {
   return (
     <div className='w-full md:max-w-7xl h-16  p-4 mt-4 border border-borderGreen rounded-xl md:rounded-2xl'>
         
       <nav className=' w-full h-full flex justify-between items-center relative'>
-        <div className='logo'>
-          <span className='text-white text-xl'><BsTicketPerforated /></span>
+        <div className='logo flex items-center'>
+          <span className='text-white text-4xl mr-2'><BsTicketPerforated /></span>
+          <span className='text-white '>Tickets</span>
         </div>
         <div className='links hidden xl:inline-block'>
           <a href="/events">Events</a>

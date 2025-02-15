@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import NavigationStep from '../components/NavigationStep';
-import { BsCalendar2Date, BsFillGeoFill } from 'react-icons/bs';
+import { BsCalendar2Date, BsFillGeoFill, BsFillPersonFill } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeStep } from '@/app/GlobalRedux/progressSlice/progressSlice';
 import { upload } from '@/lib/upload';
@@ -85,12 +85,17 @@ export default function Ticket() {
                             </div>
 
                             {/* avatar */}
-                            <div className='w-32 h-32 my-2 bg-white rounded-lg'>
-                                <img 
-                                    src={profilePhoto && profilePhoto} 
-                                    alt="profile avatar" 
-                                    aria-label='profile avatar'
-                                />
+                            <div className='w-32 h-32 my-2 flex justify-center items-center bg-white rounded-lg'>
+
+                                {(profilePhoto) ? 
+                                    <img 
+                                        src={profilePhoto} 
+                                        alt="profile avatar" 
+                                        aria-label='profile avatar'
+                                    /> : 
+
+                                    <BsFillPersonFill className='text-8xl text-backgroundGreenLight' />
+                                } 
                             </div>
 
                             <div className='attendee-ticket-details border border-borderGreen w-full rounded-lg'>

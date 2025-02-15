@@ -34,6 +34,14 @@ export default function TicketSelection() {
     dispatch(getSpecialRequest(''))
   }
 
+  const validateFields = () =>{
+    if(Array.from(data.ticketType).length === 0){
+      setErrorType('Please choose a ticket type')     
+    }else{
+      dispatch(nextStep())
+    }
+  }
+  
   return (
     <>
       <NavigationStepComponent title={stepTitle} step={stepCount}/>
@@ -54,9 +62,9 @@ export default function TicketSelection() {
 
             <section>
               {/* error message */}
-              <div className='flex justify-between item-center'>
-                <h1 className="mb-2">Select Ticket Type</h1>
-                <span className='red-200 text-sm'>
+              <div className='flex flex-col md:flex-row md:justify-between md:item-center mb-2 md:mb-1'>
+                <h1 className="mb-1 xl:mb-2">Select Ticket Type</h1>
+                <span className='text-red-400 text-xs'>
                   {errorType && errorType}
                 </span>
               </div>
@@ -211,7 +219,7 @@ export default function TicketSelection() {
               type="button" 
               className="bg-backgroundGreenLight"
               aria-label="Next step"
-              onClick={() => dispatch(nextStep())}
+              onClick={validateFields}
             >Next</button>
 
           </div>

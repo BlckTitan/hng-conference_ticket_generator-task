@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import NavigationStep from '../components/NavigationStep';
 import { Form, InputGroup } from 'react-bootstrap';
-import { BsCloudArrowUp } from 'react-icons/bs';
+import { BsCloudArrowUp, BsEnvelopeAt } from 'react-icons/bs';
 import { nextStep, prevStep } from '@/app/GlobalRedux/progressSlice/progressSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEmail, getName, getSpecialRequest } from '@/app/GlobalRedux/ticketSlice/ticketSlice';
@@ -25,6 +25,11 @@ export default function AttendeeDetails() {
     const [specialRequest, setSpecialRequest] = useState()
     const [url, setUrl] = useState('')
     const [imageData, setImageData] = useState('')
+
+    // error fields
+    const [errorUpload, setErrorUpload] = useState('')
+    const [errorName, setErrorName] = useState('')
+    const [errorEmail, setErrorEmail] = useState('')
   
     // tracking the form steps
     useEffect(() => {
@@ -50,6 +55,11 @@ export default function AttendeeDetails() {
         try {
 
             const uploadData = await upload(imageData)
+
+            if(uploadData === null){
+                setErrorUpload('No photo uploaded')
+                return false
+            }
             
             localStorage.setItem('name', data.name);
             localStorage.setItem('ticketType', data.ticketType);
@@ -66,6 +76,26 @@ export default function AttendeeDetails() {
         
     }
     
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const result = emailRegex.test(email)
+        return result
+    }
+    
+    const validateFields = () =>{
+        
+        const isValidEmail = validateEmail()
+
+        if(data.name === '' || isValidEmail === false){
+            setErrorName('Please enter your name')     
+        }
+        if(data.email === ''){
+            setErrorEmail('Please enter a valid email')
+        }
+        else{
+            handleSubmit()
+        }
+    }
 
   return (
     <div className=''>
@@ -79,9 +109,14 @@ export default function AttendeeDetails() {
 
         <main className="main-content w-full md:!h-fit md:border border-borderGreen md:p-8 mt-6">
 
-            <h2 className='mb-2'>Upload Profile Photo</h2>
+            {/* error message */}
+            <div className='flex flex-col md:flex-row md:justify-between md:item-center mb-2 md:mb-1'>
+            <h1 className="mb-1 xl:mb-2">Upload Profile Photo</h1>
+            <span className='text-red-400 text-xs'>
+                {errorUpload && errorUpload}
+            </span>
+            </div>
 
-            {/* <Form noValidate validated={validated} onSubmit={handleSubmit}> */}
             <section className="w-full md:max-w-xl h-fit md:h-36 flex justify-center items-center border border-borderGreen rounded-3xl md:p-6" >
 
                 <div className="w-full h-full flex flex-col justify-center items-center p-3 md:p-0 bg-backgroundGreen rounded-full md:rounded-lg relative">
@@ -98,7 +133,7 @@ export default function AttendeeDetails() {
                     <Form.Label 
                         htmlFor='upload' 
                         aria-label="File upload button"
-                        className='w-full md:w-48 h-40 md:absolute text-center flex flex-col justify-center items-center rounded-lg border-2 border-backgroundGreenLight'
+                        className='w-full md:w-48 h-40 md:absolute z-10 text-center flex flex-col justify-center items-center rounded-lg border-2 border-backgroundGreenLight'
                         style={{backgroundColor: '#0E464F'}}
                     >
                         <span className='text-center'>
@@ -107,10 +142,10 @@ export default function AttendeeDetails() {
                         Drag & drop or click to upload
                     </Form.Label>
 
-                    <div className='w-full h-full'
+                    <div className='w-full h-full absolute'
                         style={{backgroundColor: '#030303'}}>
                         {url &&
-                            <img src={url} className='w-full h-full object-cover'/>
+                            <img src={url} className='w-full h-full object-cover object-center'/>
                         }
                     </div>
 
@@ -124,7 +159,15 @@ export default function AttendeeDetails() {
                 <div className="">
 
                     <Form.Group className="mb-2" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Enter your name</Form.Label>
+                        
+                        {/* error message */}
+                        <div className='flex flex-col md:flex-row md:justify-between md:item-center mb-2 md:mb-1'>
+                            <Form.Label className="mb-1 xl:mb-2">Enter your name</Form.Label>
+                            <span className='text-red-400 text-xs'>
+                                {errorName && errorName}
+                            </span>
+                        </div>
+
                         <Form.Control 
                             type="text" 
                             placeholder="Large text" 
@@ -133,6 +176,7 @@ export default function AttendeeDetails() {
                             value={name}
                             onChange={(e) => (setName(e.target.value), dispatch(getName(e.target.value)))}
                         />
+
                     </Form.Group>
                 
                 </div>
@@ -140,10 +184,13 @@ export default function AttendeeDetails() {
                 <div>
                     <InputGroup className="mb-2">
 
-                        {/* <InputGroup.Text id="basic-addon1">
-                            <BsEnvelopeAt/>
-                        </InputGroup.Text> */}
-                        <Form.Label>Enter your email*</Form.Label>
+                        <div className='flex flex-col md:flex-row md:justify-between md:item-center mb-2 md:mb-1'>
+                            <Form.Label className="mb-1 xl:mb-2">Enter your email</Form.Label>
+                            <span className='text-red-400 text-xs'>
+                                {errorEmail && errorEmail}
+                            </span>
+                        </div>
+
                         <Form.Control
                             type="email " 
                             placeholder="Email"
@@ -191,7 +238,7 @@ export default function AttendeeDetails() {
                     type="button" 
                     className="bg-backgroundGreenLight"
                     aria-label="Next step"
-                    onClick={() => handleSubmit()}
+                    onClick={() => validateFields()}
                 >
                     Get My Ticket
                 </button>

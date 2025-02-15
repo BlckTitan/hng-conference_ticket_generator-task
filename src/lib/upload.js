@@ -1,7 +1,6 @@
 'use server'
 
 import cloudinary from 'cloudinary'
-import '../lib/cloudinaryConfig';
 import fs from 'fs/promises'
 import { v4 as uuidv4 } from 'uuid';
 import os from 'node:os'
@@ -70,7 +69,7 @@ const uploadToCloudinary = async (newUpload) =>{
 export const upload = async (uploadFile) =>{
     try {
         if(!uploadFile){
-            throw new Error('No file uploaded')
+            return null
         }
 
         // save to temp dir

@@ -33,12 +33,14 @@ export default function Ticket() {
 
     // getting user ticket data
     useEffect(() => {
-        if(localStorage.getItem('name')) return setName(localStorage.getItem('name'))
-        if(localStorage.getItem('ticketType')) return setTicketTye(localStorage.getItem('ticketType'))
-        if(localStorage.getItem('email')) return setEmail(localStorage.getItem('email'))
-        if(localStorage.getItem('specialRequest')) return setSpecialRequest(localStorage.getItem('specialRequest'))
-        if(localStorage.getItem('numberOfTickets')) return setNumberOfTickets(localStorage.getItem('numberOfTickets'))
-        if(localStorage.getItem('profilePhoto')) return setProfilePhoto(localStorage.getItem('profilePhoto'))
+
+        setName(localStorage.getItem('name'))
+        setTicketTye(localStorage.getItem('ticketType'))
+        setEmail(localStorage.getItem('email'))
+        setSpecialRequest(localStorage.getItem('specialRequest'))
+        setNumberOfTickets(localStorage.getItem('numberOfTickets'))
+        setProfilePhoto(localStorage.getItem('profilePhoto'))
+
     }, [name, email, profilePhoto, specialRequest, ticketType])
 
     console.log(name, email, profilePhoto, specialRequest, ticketType)
@@ -84,7 +86,11 @@ export default function Ticket() {
 
                             {/* avatar */}
                             <div className='w-32 h-32 my-2 bg-white rounded-lg'>
-                                <img src={profilePhoto} alt="profile avatar" aria-label='profile avatar'/>
+                                <img 
+                                    src={profilePhoto && profilePhoto} 
+                                    alt="profile avatar" 
+                                    aria-label='profile avatar'
+                                />
                             </div>
 
                             <div className='attendee-ticket-details border border-borderGreen w-full rounded-lg'>
@@ -99,7 +105,7 @@ export default function Ticket() {
                                 </div>
 
                                 <div className="w-full border-borderGreen p-2">
-                                    {specialRequest}
+                                    {(typeof(specialRequest) === undefined) ? specialRequest : 'No special requests'}
                                 </div>
                             </div>
 

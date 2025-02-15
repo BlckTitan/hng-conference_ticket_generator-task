@@ -41,7 +41,7 @@ export default function TicketSelection() {
       dispatch(nextStep())
     }
   }
-  
+
   return (
     <>
       <NavigationStepComponent title={stepTitle} step={stepCount}/>
@@ -73,7 +73,7 @@ export default function TicketSelection() {
                 {/* ticket type selection */}
                 <div 
                   className={
-                    (ticketType === 'option1') ? 
+                    (ticketType[0] === 'Regular Access') ? 
                     'ticket-type regularAccess text-left border border-borderGreen rounded-xl active' :
                     'ticket-type regularAccess text-left border border-borderGreen rounded-xl'
                   }
@@ -88,10 +88,10 @@ export default function TicketSelection() {
                       className="hidden"
                       aria-label="Regular access; Free; 20/52"
                       name='package'
-                      value={['Regular Access', 0, '20/52']}
-                      onClick={(e) => {
-                        setTicketType('option1')
-                        dispatch(getticketType([e.target.value]))
+                      value={ticketType}
+                      onClick={() => {
+                        setTicketType(['Regular Access', 0, '20/52'])
+                        dispatch(getticketType(ticketType))
                       }}
                     />
                   </Form.Group>
@@ -109,9 +109,9 @@ export default function TicketSelection() {
               {/* ticket type selection */}
                 <div 
                   className={
-                    (ticketType === 'option2') ? 
-                    'ticket-type regularAccess text-left border border-borderGreen rounded-xl active' :
-                    'ticket-type regularAccess text-left border border-borderGreen rounded-xl'
+                    (ticketType[0] === 'VIP Access') ? 
+                    'ticket-type regularAccess text-left border border-borderGreen rounded-xl md:mx-2 active' :
+                    'ticket-type regularAccess text-left border border-borderGreen rounded-xl md:mx-2'
                   }
                 >
                   
@@ -124,10 +124,10 @@ export default function TicketSelection() {
                       className="hidden"
                       aria-label="VIP access; $150; 20/52"
                       name='package'
-                      value={['VIP Access', 150, '20/52']}
+                      value={ticketType}
                       onChange={(e) => {
-                        setTicketType('option2')
-                          dispatch(getticketType(e.target.value))
+                        setTicketType(['VIP Access', 150, '20/52'])
+                          dispatch(getticketType(ticketType))
                         }
                       }
                     />
@@ -146,7 +146,7 @@ export default function TicketSelection() {
                 {/* ticket type selection */}
                 <div 
                   className={
-                    (ticketType === 'option3') ? 
+                    (ticketType[0] === 'VVIP Access') ? 
                     'ticket-type regularAccess text-left border border-borderGreen rounded-xl active' :
                     'ticket-type regularAccess text-left border border-borderGreen rounded-xl'
                   }
@@ -161,10 +161,10 @@ export default function TicketSelection() {
                       className="hidden"
                       aria-label="VVIP access; $150; 20/52"
                       name='package'
-                      value={['VVIP Access', 150, '20/52']}
+                      value={ticketType}
                       onChange={(e) => {
-                          setTicketType('option3')
-                          dispatch(getticketType([e.target.value]))
+                          setTicketType(['VVIP Access', 150, '20/52'])
+                          dispatch(getticketType(ticketType))
                         }
                       }
                     />
